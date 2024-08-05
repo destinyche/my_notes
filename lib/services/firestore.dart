@@ -4,8 +4,9 @@ class FireStoreServices {
   final CollectionReference notes =
       FirebaseFirestore.instance.collection('notes');
 
-  Future<void> addNote(String note) {
+  Future<void> addNote(String note, String title) {
     return notes.add({
+      'title': title,
       'note': note,
       'timeStamp': Timestamp.now(),
     });
@@ -17,10 +18,9 @@ class FireStoreServices {
     return notesStream;
   }
 
-  Future<void> updateNote(String docID, String newNote) {
-    return notes
-        .doc(docID)
-        .update({'note': newNote, 'timeStamp': Timestamp.now()});
+  Future<void> updateNote(String docID, String newNote, String newTitle) {
+    return notes.doc(docID).update(
+        {'note': newNote, 'title': newTitle, 'timeStamp': Timestamp.now()});
   }
 
   Future<void> deleteNote(

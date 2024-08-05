@@ -6,9 +6,12 @@ class EditNotes extends StatefulWidget {
   const EditNotes({
     super.key,
     this.docID,
+    this.initialText, this.initialTitle,
   });
 
   final String? docID;
+  final String? initialTitle;
+  final String? initialText;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -17,16 +20,26 @@ class EditNotes extends StatefulWidget {
 
 class _EditNotesState extends State<EditNotes> {
   final TextEditingController textController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
   final FireStoreServices fireStoreServices = FireStoreServices();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initialText != null) {
+      textController.text = widget.initialText!;
+    }
+    if (widget.initialTitle != null) {
+      titleController.text = widget.initialTitle!;
+    }
+  }
 
   void saveNote() {
     if (widget.docID == null) {
-      fireStoreServices.addNote(textController.text);
+      fireStoreServices.addNote(textController.text, titleController.text);
     } else {
       fireStoreServices.updateNote(
-        widget.docID!,
-        textController.text,
-      );
+          widget.docID!, textController.text, titleController.text);
     }
     Navigator.pop(context);
   }
@@ -45,6 +58,15 @@ class _EditNotesState extends State<EditNotes> {
       ),
       body: Column(
         children: [
+          TextField(
+            controller: titleController,
+            maxLines: 1,
+            minLines: null,
+            expands: false,
+            decoration: const InputDecoration(
+              hintText: 'Title...',
+            ),
+          ),
           Expanded(
             child: TextField(
               controller: textController,

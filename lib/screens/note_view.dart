@@ -1,27 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:my_notes/screens/edit_notes.dart';
+import 'package:my_notes/services/firestore.dart';
 import 'package:share_plus/share_plus.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 
 class NoteView extends StatelessWidget {
-  final String noteText;
-
-  const NoteView({
+  NoteView({
     Key? key,
     required this.noteText,
+    required this.noteTitleText,
+    required this.docID,
   }) : super(key: key);
 
-  Future<void> _shareNote() async {
-    try {
-      final directory = await getTemporaryDirectory();
-      final path = '${directory.path}/note.txt';
-      final file = File(path);
-      await file.writeAsString(noteText);
+  final String noteText;
+  final String noteTitleText;
+  final String docID;
 
-      Share.shareXFiles([XFile(path)], text: 'Here is your note');
-    } catch (e) {
-      print('Error sharing note: $e');
-    }
+  Future<void> _shareNote() async {
+    final directory = await getTemporaryDirectory();
+    final path = '${directory.path}/note.txt';
+    final file = File(path);
+    await file.writeAsString(noteText);
+
+    Share.shareXFiles([XFile(path)], text: 'Here is your note');
+  }
+
+  final FireStoreServices fireStoreServices = FireStoreServices();
+
+  void openNoteBox(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => EditNotes(
+                  docID: docID,
+                  initialText: noteText,
+                  initialTitle: noteTitleText,
+                )));
   }
 
   @override
@@ -35,6 +50,11 @@ class NoteView extends StatelessWidget {
             onPressed: _shareNote,
           ),
         ],
+      ),
+      floatingActionButton: SizedBox(
+        width: 100,
+        child: FloatingActionButton(
+            child: const Text('Edit'), onPressed: () => openNoteBox(context)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
