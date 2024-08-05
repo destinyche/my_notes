@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_notes/screens/theme_dark.dart';
-import 'package:my_notes/screens/theme_light.dart';
+import 'package:my_notes/screens/theme.dart';
 
 class ThemeProvider extends ChangeNotifier {
-  
-
   ThemeData _themeData = darkMode;
 
   ThemeData get themeData => _themeData;
@@ -22,6 +19,3 @@ class ThemeProvider extends ChangeNotifier {
     }
   }
 }
-
-
-

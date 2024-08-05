@@ -47,7 +47,7 @@ class _HomeState extends State<Home> {
           Padding(
             padding: const EdgeInsets.only(right: 10),
             child: IconButton(
-              icon: Icon(Icons.sunny),
+              icon: const Icon(Icons.sunny),
               onPressed: () {
                 Provider.of<ThemeProvider>(context, listen: false)
                     .toggleTheme();
@@ -56,7 +56,7 @@ class _HomeState extends State<Home> {
           ),
         ],
         centerTitle: true,
-        backgroundColor: Colors.blue,
+        // backgroundColor: Colors.blue,
         title: const Text('Easy Notes'),
       ),
       floatingActionButton: SizedBox(
@@ -100,8 +100,8 @@ class _HomeState extends State<Home> {
                     child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: Theme.of(context).colorScheme.primary
-                          ),
+                          color:
+                              Theme.of(context).colorScheme.primaryContainer),
                       child: ListTile(
                         onTap: () => noteView(noteText, noteTitleText, docID),
                         title: Stack(
