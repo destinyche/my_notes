@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:my_notes/firebase_options.dart';
+import 'package:my_notes/screens/auth/auth.dart';
 import 'package:my_notes/screens/home.dart';
+import 'package:my_notes/screens/sign_in.dart';
 import 'package:my_notes/screens/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +29,7 @@ class _MainAppState extends State<MainApp> {
       theme: Provider.of<ThemeProvider>(context).themeData,
       debugShowCheckedModeBanner: false,
       // ignore: prefer_const_constructors
-      home: Home(),
+      home: Auth(),
     );
   }
 }

@@ -6,7 +6,8 @@ class EditNotes extends StatefulWidget {
   const EditNotes({
     super.key,
     this.docID,
-    this.initialText, this.initialTitle,
+    this.initialText,
+    this.initialTitle,
   });
 
   final String? docID;
@@ -56,29 +57,32 @@ class _EditNotesState extends State<EditNotes> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          TextField(
-            controller: titleController,
-            maxLines: 1,
-            minLines: null,
-            expands: false,
-            decoration: const InputDecoration(
-              hintText: 'Title...',
-            ),
-          ),
-          Expanded(
-            child: TextField(
-              controller: textController,
-              maxLines: null,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25),
+        child: Column(
+          children: [
+            TextField(
+              controller: titleController,
+              maxLines: 1,
               minLines: null,
-              expands: true,
+              expands: false,
               decoration: const InputDecoration(
-                hintText: 'Enter your note here...',
+                hintText: 'Title...',
               ),
             ),
-          ),
-        ],
+            Expanded(
+              child: TextField(
+                controller: textController,
+                maxLines: null,
+                minLines: null,
+                expands: true,
+                decoration: const InputDecoration(
+                  hintText: 'Enter your note here...',
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

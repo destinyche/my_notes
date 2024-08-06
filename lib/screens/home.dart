@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_notes/screens/edit_notes.dart';
 import 'package:my_notes/screens/note_view.dart';
@@ -39,6 +40,10 @@ class _HomeState extends State<Home> {
                 )));
   }
 
+  void userSignOut() {
+    FirebaseAuth.instance.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,10 +64,36 @@ class _HomeState extends State<Home> {
         // backgroundColor: Colors.blue,
         title: const Text('Easy Notes'),
       ),
+      drawer: Drawer(
+        child: Center(
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+            ),
+            child: Text(
+              'Sign Out',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.background,
+              ),
+            ),
+            onPressed: () {
+              userSignOut();
+            },
+          ),
+        ),
+      ),
       floatingActionButton: SizedBox(
         width: 100,
         child: FloatingActionButton(
-          child: const Text('Add Note'),
+          elevation: 0,
+          // disabledElevation: 20,
+          // backgroundColor: Theme.of(context).colorScheme.primary,
+          child: Text(
+            'Add Note',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
           onPressed: () {
             openNoteBox();
           },
@@ -110,7 +141,9 @@ class _HomeState extends State<Home> {
                               children: [
                                 Text(
                                   noteTitleText,
-                                  style: const TextStyle(fontSize: 20),
+                                  style: const TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold),
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -127,18 +160,15 @@ class _HomeState extends State<Home> {
                               child: Container(
                                 alignment: const Alignment(0, 1),
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.red.shade300,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.transparent,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(15)),
                                   ),
-                                  child: TextButton(
+                                  child: IconButton(
                                     onPressed: () =>
                                         fireStoreServices.deleteNote(docID),
-                                    child: const Text(
-                                      'Delete Note',
-                                      style: TextStyle(color: Colors.black),
-                                    ),
+                                    icon: const Icon(Icons.delete),
                                   ),
                                 ),
                               ),
