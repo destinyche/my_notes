@@ -127,8 +127,8 @@ class _HomeState extends State<Home> {
                               child: Container(
                                 alignment: const Alignment(0, 1),
                                 child: Container(
-                                  decoration: const BoxDecoration(
-                                    color: Colors.red,
+                                  decoration: BoxDecoration(
+                                    color: Colors.red.shade300,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(15)),
                                   ),
