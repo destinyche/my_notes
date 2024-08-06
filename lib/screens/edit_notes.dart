@@ -62,6 +62,7 @@ class _EditNotesState extends State<EditNotes> {
         child: Column(
           children: [
             TextField(
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               controller: titleController,
               maxLines: 1,
               minLines: null,
@@ -69,6 +70,9 @@ class _EditNotesState extends State<EditNotes> {
               decoration: const InputDecoration(
                 hintText: 'Title...',
               ),
+            ),
+            SizedBox(
+              height: 20,
             ),
             Expanded(
               child: TextField(

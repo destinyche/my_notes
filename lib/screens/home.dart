@@ -103,11 +103,7 @@ class _HomeState extends State<Home> {
         stream: fireStoreServices.getNotesStream(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-                child: Padding(
-              padding: EdgeInsets.all(20.0),
-              child: LinearProgressIndicator(),
-            ));
+            return const Center(child: LinearProgressIndicator());
           } else if (snapshot.hasError) {
             return const Center(child: Text("Error loading notes"));
           } else {
@@ -115,8 +111,7 @@ class _HomeState extends State<Home> {
               List<DocumentSnapshot> notesList = snapshot.data!.docs;
               return GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    // mainAxisSpacing: 1, crossAxisSpacing: 1,
-                    crossAxisCount: 2),
+                    crossAxisCount: 2, mainAxisSpacing: 100),
                 itemCount: notesList.length,
                 itemBuilder: (context, index) {
                   DocumentSnapshot document = notesList[index];
@@ -139,37 +134,37 @@ class _HomeState extends State<Home> {
                           children: [
                             Column(
                               children: [
-                                Text(
-                                  noteTitleText,
-                                  style: const TextStyle(
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.bold),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
+                                Container(
+                                  alignment: Alignment(-1, -1),
+                                  child: Text(
+                                    noteTitleText,
+                                    style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20,
                                 ),
                                 Text(
                                   noteText,
-                                  style: const TextStyle(fontSize: 20),
-                                  maxLines: 1,
+                                  style: const TextStyle(fontSize: 15),
+                                  maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ],
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(15.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: Container(
-                                alignment: const Alignment(0, 1),
-                                child: Container(
-                                  decoration: const BoxDecoration(
-                                    color: Colors.transparent,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(15)),
-                                  ),
-                                  child: IconButton(
-                                    onPressed: () =>
-                                        fireStoreServices.deleteNote(docID),
-                                    icon: const Icon(Icons.delete),
-                                  ),
+                                alignment: const Alignment(1.4, 1),
+                                child: IconButton(
+                                  color: Colors.grey,
+                                  onPressed: () =>
+                                      fireStoreServices.deleteNote(docID),
+                                  icon: const Icon(Icons.delete),
                                 ),
                               ),
                             ),

@@ -54,13 +54,48 @@ class NoteView extends StatelessWidget {
       floatingActionButton: SizedBox(
         width: 100,
         child: FloatingActionButton(
-            child: const Text('Edit'), onPressed: () => openNoteBox(context)),
+            child: Text(
+              'Edit',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+            onPressed: () => openNoteBox(context)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Text(
-          noteText,
-          style: const TextStyle(fontSize: 18),
+        child: Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                alignment: Alignment(-1, -1),
+                child: Text(
+                  noteTitleText,
+                  style: const TextStyle(
+                      fontSize: 25, fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Divider(
+                color: Color.fromARGB(255, 78, 76, 76),
+                height: 2.0,
+                thickness: 2,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                alignment: Alignment(-1, -1),
+                child: Text(
+                  noteText,
+                  style: const TextStyle(fontSize: 18),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
